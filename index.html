@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>AZ Resultados - Pitch Futurista</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: rgba(255,255,255,0.03);
+  --cyan: #00f0ff;
+  --purple: #8b5cf6;
+  --magenta: #c026d3;
+  --green-neon: #00ff88;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.35);
+  --gradient-main: linear-gradient(135deg, #0a0a2e 0%, #0f0f1a 50%, #1a0a2e 100%);
+  --gradient-accent: linear-gradient(135deg, #00f0ff, #8b5cf6, #c026d3);
+  --gradient-glow: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(139,92,246,0.15));
+  --border-subtle: rgba(255,255,255,0.06);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.slide {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  background: var(--gradient-main);
+}
+
+/* ====== GRID OVERLAY ====== */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ====== GLOW EFFECTS ====== */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+.glow-cyan { background: rgba(0,240,255,0.12); }
+.glow-purple { background: rgba(139,92,246,0.12); }
+.glow-magenta { background: rgba(192,38,211,0.08); }
+
+/* ====== TYPOGRAPHY ====== */
+.font-space { font-family: 'Space Grotesk', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+
+.text-giant {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 180px;
+  line-height: 0.85;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-mega {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 0.9;
+}
+
+.text-hero {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1.05;
+}
+
+.text-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1.15;
+}
+
+.text-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.text-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.text-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.text-gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ====== COMPONENTS ====== */
+.accent-line {
+  width: 80px;
+  height: 3px;
+  background: var(--gradient-accent);
+  border-radius: 2px;
+}
+
+.accent-line-long {
+  width: 200px;
+  height: 2px;
+  background: var(--gradient-accent);
+  border-radius: 2px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.card-glow {
+  box-shadow: 0 0 40px rgba(0,240,255,0.05), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.metric-card {
+  background: rgba(0,240,255,0.03);
+  border: 1px solid rgba(0,240,255,0.1);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: 20px;
+  background: var(--gradient-accent);
+  z-index: -1;
+  opacity: 0.15;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,240,255,0.3);
+  color: var(--cyan);
+  background: rgba(0,240,255,0.05);
+}
+
+.divider-v {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(0,240,255,0.3), transparent);
+}
+
+.divider-h {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,240,255,0.3), transparent);
+}
+
+/* ====== LOGO ====== */
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-bars {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+.logo-bars .bar {
+  width: 4px;
+  border-radius: 2px;
+}
+.logo-bars .bar.magenta { background: var(--magenta); }
+.logo-bars .bar.teal { background: #2a6b7c; }
+.logo-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+.logo-text .az { color: var(--magenta); }
+.logo-text .res { color: var(--text-primary); }
+
+/* ====== NAVIGATION DOT ====== */
+.slide-number {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+.slide-number span { color: var(--cyan); font-weight: 600; }
+
+/* ====== PROGRESS BAR ====== */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+}
+
+/* ====== PRINT ====== */
+@media print {
+  body { margin: 0; }
+  .slide {
+    page-break-after: always;
+    -webkit-print-color-adjust: exact !important;
+  }
+}
+
+/* ====== SPECIFIC SLIDE STYLES ====== */
+
+/* Animated diagonal lines */
+.diagonal-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.diagonal-lines::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 80px,
+    rgba(0,240,255,0.02) 80px,
+    rgba(0,240,255,0.02) 81px
+  );
+}
+
+/* Stack layers */
+.stack-layer {
+  padding: 24px 36px;
+  border-left: 3px solid;
+  background: rgba(255,255,255,0.02);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 8px;
+}
+
+/* Timeline */
+.timeline-node {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  position: relative;
+}
+.timeline-node::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(to right, var(--cyan), transparent);
+}
+
+/* Hexagon */
+.hex-container {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- SLIDE 01: HOOK - PROVOCATIVE QUESTION                           -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex; align-items:center; justify-content:center;">
+  <div class="grid-overlay"></div>
+  <div class="diagonal-lines"></div>
+
+  <!-- Glow orbs -->
+  <div class="glow-orb glow-cyan" style="width:600px;height:600px;top:-200px;right:-100px;"></div>
+  <div class="glow-orb glow-purple" style="width:500px;height:500px;bottom:-200px;left:-100px;"></div>
+  <div class="glow-orb glow-magenta" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <!-- Logo top-left -->
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+      <div class="bar magenta" style="height:24px;"></div>
+      <div class="bar teal" style="height:36px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <!-- Center content -->
+  <div style="text-align:center;max-width:1400px;padding:0 80px;">
+    <div class="text-label" style="margin-bottom:40px;letter-spacing:6px;">A PERGUNTA QUE NINGUEM FAZ</div>
+    <div class="text-giant" style="margin-bottom:50px;">89%</div>
+    <div class="text-hero" style="color:var(--text-primary);margin-bottom:30px;">
+      das empresas em crescimento<br>
+      <span class="text-gradient">quebram por falta de gestao financeira.</span>
+    </div>
+    <div class="accent-line-long" style="margin:0 auto 30px;"></div>
+    <div class="text-subtitle" style="max-width:700px;margin:0 auto;">
+      Nao por falta de produto. Nao por falta de mercado.<br>
+      Por falta de <strong style="color:var(--cyan);">inteligencia financeira estrategica.</strong>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>01</span> / 14</div>
+  <div class="progress-bar" style="width:7.14%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 02: THE PROBLEM - SHOCKING DATA                           -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex; align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:400px;height:400px;top:100px;left:100px;"></div>
+  <div class="glow-orb glow-purple" style="width:500px;height:500px;bottom:-100px;right:200px;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 100px;width:100%;">
+    <div class="text-label" style="margin-bottom:20px;">O PROBLEMA</div>
+    <div class="text-hero" style="margin-bottom:60px;max-width:900px;">
+      Crescer sem controle e<br><span class="text-gradient">acelerar em direcao ao abismo.</span>
+    </div>
+
+    <div style="display:flex;gap:40px;">
+      <!-- Metric 1 -->
+      <div class="metric-card" style="flex:1;">
+        <div class="font-space" style="font-size:96px;font-weight:900;color:var(--cyan);line-height:1;">62%</div>
+        <div style="height:2px;background:linear-gradient(to right,var(--cyan),transparent);margin:20px 0;"></div>
+        <div class="text-body" style="color:var(--text-secondary);">das startups falham por problemas de fluxo de caixa e gestao financeira inadequada</div>
+      </div>
+
+      <!-- Metric 2 -->
+      <div class="metric-card" style="flex:1;">
+        <div class="font-space" style="font-size:96px;font-weight:900;color:var(--purple);line-height:1;">R$2.4T</div>
+        <div style="height:2px;background:linear-gradient(to right,var(--purple),transparent);margin:20px 0;"></div>
+        <div class="text-body" style="color:var(--text-secondary);">em valor destruido anualmente por decisoes financeiras sem estrategia no Brasil</div>
+      </div>
+
+      <!-- Metric 3 -->
+      <div class="metric-card" style="flex:1;">
+        <div class="font-space" style="font-size:96px;font-weight:900;color:var(--magenta);line-height:1;">3x</div>
+        <div style="height:2px;background:linear-gradient(to right,var(--magenta),transparent);margin:20px 0;"></div>
+        <div class="text-body" style="color:var(--text-secondary);">mais chances de sucesso com CFO estrategico dedicado vs. gestao financeira amadora</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>02</span> / 14</div>
+  <div class="progress-bar" style="width:14.28%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 03: AZ SOLUTION - VISUAL CONCEPT                          -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="glow-orb glow-purple" style="width:400px;height:400px;top:0;right:0;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 100px;display:flex;align-items:center;gap:100px;width:100%;">
+    <!-- Left: concept -->
+    <div style="flex:1;">
+      <div class="text-label" style="margin-bottom:20px;">A SOLUCAO</div>
+      <div class="text-hero" style="margin-bottom:30px;">
+        De <span style="color:var(--text-muted);text-decoration:line-through;">consultoria</span><br>
+        para <span class="text-gradient">comando financeiro.</span>
+      </div>
+      <div class="accent-line" style="margin-bottom:30px;"></div>
+      <div class="text-subtitle" style="margin-bottom:40px;">
+        A AZ Resultados nao e uma consultoria que entrega relatorios.<br>
+        Somos o <strong style="color:var(--cyan);">sistema nervoso financeiro</strong> da sua empresa.
+      </div>
+      <div style="display:flex;gap:16px;">
+        <div class="tag">CFO as a Service</div>
+        <div class="tag">Gestao 360</div>
+        <div class="tag">M&A</div>
+        <div class="tag">BPO</div>
+      </div>
+    </div>
+
+    <!-- Right: visual hub -->
+    <div style="flex:1;position:relative;height:600px;">
+      <!-- Central hub -->
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 0 80px rgba(0,240,255,0.3);">
+        <div style="font-family:'Space Grotesk';font-weight:900;font-size:36px;color:#0a0a0f;text-align:center;line-height:1.1;">AZ<br><span style="font-size:16px;font-weight:400;letter-spacing:3px;">CORE</span></div>
+      </div>
+
+      <!-- Orbiting nodes -->
+      <div style="position:absolute;top:40px;left:50%;transform:translateX(-50%);">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;background:rgba(0,240,255,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--cyan);font-weight:600;">ESTRATEGIA</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:180px;right:20px;">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;background:rgba(139,92,246,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--purple);font-weight:600;">VALUATION</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:180px;right:20px;">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(192,38,211,0.3);display:flex;align-items:center;justify-content:center;background:rgba(192,38,211,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--magenta);font-weight:600;">JURIDICO</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(0,255,136,0.3);display:flex;align-items:center;justify-content:center;background:rgba(0,255,136,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--green-neon);font-weight:600;">CONTABIL</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:180px;left:20px;">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;background:rgba(0,240,255,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--cyan);font-weight:600;">RH</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:180px;left:20px;">
+        <div style="width:120px;height:120px;border-radius:50%;border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;background:rgba(139,92,246,0.05);flex-direction:column;">
+          <div style="font-size:13px;color:var(--purple);font-weight:600;">BPO</div>
+        </div>
+      </div>
+
+      <!-- Connection rings -->
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;height:420px;border-radius:50%;border:1px dashed rgba(0,240,255,0.1);"></div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:520px;height:520px;border-radius:50%;border:1px dashed rgba(139,92,246,0.08);"></div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>03</span> / 14</div>
+  <div class="progress-bar" style="width:21.42%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 04: BUSINESS MODEL - LEAN CANVAS VISUAL                   -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-purple" style="width:500px;height:500px;top:-100px;left:50%;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">MODELO DE NEGOCIO</div>
+    <div class="text-headline" style="margin-bottom:50px;">Como <span class="text-gradient">geramos valor</span></div>
+
+    <!-- Canvas Grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-template-rows:auto auto;gap:16px;">
+
+      <div class="card card-glow" style="padding:32px;grid-row:span 2;">
+        <div style="font-size:13px;color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">PROBLEMA</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;">
+          Empresas em crescimento sem gestao financeira estrategica perdem margem, caixa e oportunidades de M&A.
+        </div>
+      </div>
+
+      <div class="card card-glow" style="padding:32px;">
+        <div style="font-size:13px;color:var(--purple);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">SOLUCAO</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;">
+          CFO as a Service + BPO integrado + Jurídico estrategico = Comando financeiro completo.
+        </div>
+      </div>
+
+      <div class="card card-glow" style="padding:32px;">
+        <div style="font-size:13px;color:var(--magenta);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">PROPOSTA UNICA</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;">
+          Expertise C-Level por uma fracao do custo de um executivo full-time. Resultado, nao relatorio.
+        </div>
+      </div>
+
+      <div class="card card-glow" style="padding:32px;grid-row:span 2;">
+        <div style="font-size:13px;color:var(--green-neon);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">RECEITA</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;margin-bottom:20px;">
+          <strong style="color:var(--text-primary);">Retainer mensal</strong> por servico contratado
+        </div>
+        <div class="text-body" style="font-size:18px;margin-bottom:20px;">
+          <strong style="color:var(--text-primary);">Projeto M&A</strong> fee por transacao
+        </div>
+        <div class="text-body" style="font-size:18px;">
+          <strong style="color:var(--text-primary);">Success fee</strong> em resultados entregues
+        </div>
+      </div>
+
+      <div class="card card-glow" style="padding:32px;">
+        <div style="font-size:13px;color:var(--cyan);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">SEGMENTO</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;">
+          Tech, SaaS, Startups Series A-C, PMEs em crescimento, empresas pre-IPO.
+        </div>
+      </div>
+
+      <div class="card card-glow" style="padding:32px;">
+        <div style="font-size:13px;color:var(--purple);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">CANAIS</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div class="text-body" style="font-size:18px;">
+          Network C-Level, indicacoes, parcerias com fundos de investimento e aceleradoras.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-number"><span>04</span> / 14</div>
+  <div class="progress-bar" style="width:28.56%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 05: GROWTH METRICS - DASHBOARD                            -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:500px;height:500px;bottom:-100px;left:50%;transform:translateX(-50%);"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">METRICAS DE IMPACTO</div>
+    <div class="text-headline" style="margin-bottom:50px;">Resultados que <span class="text-gradient">falam por si</span></div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-bottom:40px;">
+
+      <div style="text-align:center;padding:40px 20px;">
+        <div class="font-space" style="font-size:84px;font-weight:900;color:var(--cyan);line-height:1;">30+</div>
+        <div style="height:2px;background:linear-gradient(to right,transparent,var(--cyan),transparent);margin:16px 0;"></div>
+        <div class="text-body" style="font-size:18px;">anos de experiencia combinada em C-Level financeiro</div>
+      </div>
+
+      <div style="text-align:center;padding:40px 20px;">
+        <div class="font-space" style="font-size:84px;font-weight:900;color:var(--purple);line-height:1;">6</div>
+        <div style="height:2px;background:linear-gradient(to right,transparent,var(--purple),transparent);margin:16px 0;"></div>
+        <div class="text-body" style="font-size:18px;">servicos integrados em uma unica solucao estrategica</div>
+      </div>
+
+      <div style="text-align:center;padding:40px 20px;">
+        <div class="font-space" style="font-size:84px;font-weight:900;color:var(--magenta);line-height:1;">5+</div>
+        <div style="height:2px;background:linear-gradient(to right,transparent,var(--magenta),transparent);margin:16px 0;"></div>
+        <div class="text-body" style="font-size:18px;">operacoes de M&A concluidas com sucesso (Neomode, Linx, Kzas)</div>
+      </div>
+
+      <div style="text-align:center;padding:40px 20px;">
+        <div class="font-space" style="font-size:84px;font-weight:900;color:var(--green-neon);line-height:1;">360</div>
+        <div style="font-size:36px;color:var(--green-neon);font-family:'Space Grotesk';font-weight:900;margin-top:-10px;">graus</div>
+        <div style="height:2px;background:linear-gradient(to right,transparent,var(--green-neon),transparent);margin:16px 0;"></div>
+        <div class="text-body" style="font-size:18px;">cobertura: financeiro, juridico, contabil, RH, M&A, BPO</div>
+      </div>
+
+    </div>
+
+    <!-- Visual bar chart -->
+    <div class="card card-glow" style="padding:40px;display:flex;align-items:flex-end;gap:60px;justify-content:center;height:200px;">
+      <div style="text-align:center;">
+        <div style="width:80px;height:40px;background:linear-gradient(to top,var(--text-muted),rgba(255,255,255,0.1));border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:8px;">SEM AZ</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:80px;height:120px;background:linear-gradient(to top,var(--cyan),var(--purple));border-radius:4px 4px 0 0;box-shadow:0 0 30px rgba(0,240,255,0.3);"></div>
+        <div style="font-size:14px;color:var(--cyan);margin-top:8px;font-weight:600;">COM AZ</div>
+      </div>
+      <div class="divider-v" style="height:120px;margin:0 20px;"></div>
+      <div style="max-width:400px;">
+        <div class="font-space" style="font-size:48px;font-weight:900;color:var(--cyan);">3x</div>
+        <div class="text-body">mais chances de crescimento sustentavel com gestao financeira estrategica integrada</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>05</span> / 14</div>
+  <div class="progress-bar" style="width:35.7%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 06: TRACTION / PROOF - CASE CARDS                         -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-purple" style="width:400px;height:400px;top:100px;right:100px;"></div>
+  <div class="glow-orb glow-cyan" style="width:400px;height:400px;bottom:100px;left:100px;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">CASES DE SUCESSO</div>
+    <div class="text-headline" style="margin-bottom:50px;">Empresas que <span class="text-gradient">confiaram na AZ</span></div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;">
+
+      <!-- Case 1 -->
+      <div class="card card-glow" style="padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(to right,var(--cyan),var(--purple));"></div>
+        <div class="font-space" style="font-size:22px;font-weight:700;margin-bottom:8px;color:var(--text-primary);">Neomode & Linx</div>
+        <div class="tag" style="margin-bottom:24px;font-size:11px;">M&A + DUE DILIGENCE</div>
+        <div style="display:flex;gap:20px;margin-bottom:20px;">
+          <div style="text-align:center;">
+            <div class="font-space" style="font-size:42px;font-weight:900;color:var(--cyan);">EXIT</div>
+            <div style="font-size:13px;color:var(--text-muted);">Stone/Linx</div>
+          </div>
+        </div>
+        <div class="text-body" style="font-size:16px;">Assessoria completa em M&A, due diligence e reestruturacao societaria para aquisicao pela Stone.</div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="card card-glow" style="padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(to right,var(--purple),var(--magenta));"></div>
+        <div class="font-space" style="font-size:22px;font-weight:700;margin-bottom:8px;color:var(--text-primary);">Kzas & Creditas</div>
+        <div class="tag" style="margin-bottom:24px;font-size:11px;border-color:rgba(139,92,246,0.3);color:var(--purple);background:rgba(139,92,246,0.05);">REESTRUTURACAO</div>
+        <div style="display:flex;gap:20px;margin-bottom:20px;">
+          <div style="text-align:center;">
+            <div class="font-space" style="font-size:42px;font-weight:900;color:var(--purple);">CFO</div>
+            <div style="font-size:13px;color:var(--text-muted);">as a Service</div>
+          </div>
+        </div>
+        <div class="text-body" style="font-size:16px;">Gestao financeira C-Level, governanca corporativa e suporte para rodadas de investimento.</div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="card card-glow" style="padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(to right,var(--magenta),var(--cyan));"></div>
+        <div class="font-space" style="font-size:22px;font-weight:700;margin-bottom:8px;color:var(--text-primary);">Vivareal & Zap</div>
+        <div class="tag" style="margin-bottom:24px;font-size:11px;border-color:rgba(192,38,211,0.3);color:var(--magenta);background:rgba(192,38,211,0.05);">FUSAO</div>
+        <div style="display:flex;gap:20px;margin-bottom:20px;">
+          <div style="text-align:center;">
+            <div class="font-space" style="font-size:42px;font-weight:900;color:var(--magenta);">MERGE</div>
+            <div style="font-size:13px;color:var(--text-muted);">Zap Imoveis</div>
+          </div>
+        </div>
+        <div class="text-body" style="font-size:16px;">Suporte financeiro e juridico estrategico no processo de fusao entre as duas maiores plataformas imobiliarias.</div>
+      </div>
+
+    </div>
+
+    <!-- Bottom logos strip -->
+    <div style="margin-top:40px;display:flex;justify-content:center;gap:60px;align-items:center;">
+      <div style="color:var(--text-muted);font-size:16px;">Manager Online</div>
+      <div style="color:var(--text-muted);">|</div>
+      <div style="color:var(--text-muted);font-size:16px;">Catho & Seek</div>
+      <div style="color:var(--text-muted);">|</div>
+      <div style="color:var(--text-muted);font-size:16px;">Banco Real</div>
+      <div style="color:var(--text-muted);">|</div>
+      <div style="color:var(--text-muted);font-size:16px;">Ericsson</div>
+      <div style="color:var(--text-muted);">|</div>
+      <div style="color:var(--text-muted);font-size:16px;">Computer Associates</div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>06</span> / 14</div>
+  <div class="progress-bar" style="width:42.84%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 07: SERVICES - TECH STACK VISUALIZATION                   -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:600px;height:600px;top:-200px;right:-100px;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">STACK DE SERVICOS</div>
+    <div class="text-headline" style="margin-bottom:50px;">Camadas de <span class="text-gradient">inteligencia financeira</span></div>
+
+    <div style="max-width:1400px;margin:0 auto;">
+      <!-- Layer 1 - Top -->
+      <div class="stack-layer" style="border-color:var(--cyan);margin-left:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:var(--cyan);">LAYER 01 -- CFO as a Service</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Lideranca financeira estrategica. Orcamentos, forecasts, KPIs, governanca corporativa.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(0,240,255,0.15);">ESTRATEGIA</div>
+        </div>
+      </div>
+
+      <!-- Layer 2 -->
+      <div class="stack-layer" style="border-color:var(--purple);margin-left:40px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:var(--purple);">LAYER 02 -- Gestao Financeira</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Tesouraria, fluxo de caixa, controladoria, analise de viabilidade, stakeholder management.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(139,92,246,0.15);">OPERACAO</div>
+        </div>
+      </div>
+
+      <!-- Layer 3 -->
+      <div class="stack-layer" style="border-color:var(--magenta);margin-left:80px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:var(--magenta);">LAYER 03 -- Valuation & M&A</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Avaliacao de empresa, due diligence, negociacao, conducao de fusoes e aquisicoes.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(192,38,211,0.15);">TRANSACAO</div>
+        </div>
+      </div>
+
+      <!-- Layer 4 -->
+      <div class="stack-layer" style="border-color:var(--green-neon);margin-left:120px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:var(--green-neon);">LAYER 04 -- Juridico Estrategico</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Governanca societaria, contratos, mitigacao de riscos, suporte M&A.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(0,255,136,0.15);">PROTECAO</div>
+        </div>
+      </div>
+
+      <!-- Layer 5 -->
+      <div class="stack-layer" style="border-color:#ff6b6b;margin-left:160px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:#ff6b6b;">LAYER 05 -- Contabilidade & BPO</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Planejamento tributario, fechamento contabil, BPO financeiro, analises gerenciais.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(255,107,107,0.15);">BASE</div>
+        </div>
+      </div>
+
+      <!-- Layer 6 -->
+      <div class="stack-layer" style="border-color:#ffd93d;margin-left:200px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="font-space" style="font-size:24px;font-weight:700;color:#ffd93d;">LAYER 06 -- RH & Talentos</div>
+            <div class="text-body" style="font-size:18px;margin-top:4px;">Estruturacao de RH, recrutamento estrategico, people analytics, assessment DISC.</div>
+          </div>
+          <div class="font-space" style="font-size:48px;font-weight:900;color:rgba(255,217,61,0.15);">PESSOAS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>07</span> / 14</div>
+  <div class="progress-bar" style="width:50%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 08: TEAM - CONNECTED ORGANIC LAYOUT                       -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-purple" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">O TIME</div>
+    <div class="text-headline" style="margin-bottom:60px;">Executivos, nao <span class="text-gradient">consultores.</span></div>
+
+    <div style="display:flex;gap:30px;justify-content:center;">
+
+      <!-- James -->
+      <div class="card card-glow" style="padding:40px;flex:1;max-width:360px;text-align:center;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gradient-accent);"></div>
+        <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:92px;height:92px;border-radius:50%;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;">
+            <div class="font-space" style="font-size:32px;font-weight:900;color:var(--cyan);">JC</div>
+          </div>
+        </div>
+        <div class="font-space" style="font-size:24px;font-weight:700;">James Costa</div>
+        <div style="color:var(--cyan);font-size:14px;font-weight:600;letter-spacing:1px;margin:8px 0 16px;">SOCIO FUNDADOR & CONSULTOR</div>
+        <div class="divider-h" style="margin:0 auto 16px;width:60%;"></div>
+        <div class="text-body" style="font-size:16px;">30+ anos setor financeiro. Neomode, New Way, Manager Online, Banco Real. KPIs, Orcamento, Precificacao.</div>
+        <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;">
+          <div class="tag" style="font-size:10px;padding:4px 10px;">CFO</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;">M&A</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;">CONTROLLER</div>
+        </div>
+      </div>
+
+      <!-- Gennaro -->
+      <div class="card card-glow" style="padding:40px;flex:1;max-width:360px;text-align:center;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(to right,var(--purple),var(--magenta));"></div>
+        <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--magenta));margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:92px;height:92px;border-radius:50%;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;">
+            <div class="font-space" style="font-size:32px;font-weight:900;color:var(--purple);">GD</div>
+          </div>
+        </div>
+        <div class="font-space" style="font-size:24px;font-weight:700;">Gennaro Di Liddo</div>
+        <div style="color:var(--purple);font-size:14px;font-weight:600;letter-spacing:1px;margin:8px 0 16px;">BUSINESS PARTNER C-LEVEL</div>
+        <div class="divider-h" style="margin:0 auto 16px;width:60%;"></div>
+        <div class="text-body" style="font-size:16px;">25 anos C-Level/CFO. Ericsson, Computer Associates, Catho Online. MBA Londres, IBGC.</div>
+        <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;">
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(139,92,246,0.3);color:var(--purple);">CFO</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(139,92,246,0.3);color:var(--purple);">IBGC</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(139,92,246,0.3);color:var(--purple);">GLOBAL</div>
+        </div>
+      </div>
+
+      <!-- Vinicius -->
+      <div class="card card-glow" style="padding:40px;flex:1;max-width:360px;text-align:center;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(to right,var(--magenta),var(--green-neon));"></div>
+        <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--magenta),var(--green-neon));margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:92px;height:92px;border-radius:50%;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;">
+            <div class="font-space" style="font-size:32px;font-weight:900;color:var(--magenta);">VA</div>
+          </div>
+        </div>
+        <div class="font-space" style="font-size:24px;font-weight:700;">Vinicius Angelim</div>
+        <div style="color:var(--magenta);font-size:14px;font-weight:600;letter-spacing:1px;margin:8px 0 16px;">BUSINESS PARTNER JURIDICO</div>
+        <div class="divider-h" style="margin:0 auto 16px;width:60%;"></div>
+        <div class="text-body" style="font-size:16px;">Direito Empresarial FGV. Governanca societaria, M&A, mitigacao de riscos contratuais e trabalhistas.</div>
+        <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;">
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(192,38,211,0.3);color:var(--magenta);">M&A</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(192,38,211,0.3);color:var(--magenta);">FGV</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(192,38,211,0.3);color:var(--magenta);">LEGAL</div>
+        </div>
+      </div>
+
+      <!-- Jaime -->
+      <div class="card card-glow" style="padding:40px;flex:1;max-width:360px;text-align:center;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(to right,var(--green-neon),var(--cyan));"></div>
+        <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--green-neon),var(--cyan));margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:92px;height:92px;border-radius:50%;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;">
+            <div class="font-space" style="font-size:32px;font-weight:900;color:var(--green-neon);">JO</div>
+          </div>
+        </div>
+        <div class="font-space" style="font-size:24px;font-weight:700;">Jaime Oliveira</div>
+        <div style="color:var(--green-neon);font-size:14px;font-weight:600;letter-spacing:1px;margin:8px 0 16px;">BUSINESS PARTNER CONTABIL</div>
+        <div class="divider-h" style="margin:0 auto 16px;width:60%;"></div>
+        <div class="text-body" style="font-size:16px;">25+ anos contabilidade tech. DL Contab. FECAP, FMU. Planejamento tributario, controladoria.</div>
+        <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;">
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(0,255,136,0.3);color:var(--green-neon);">CONTABIL</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(0,255,136,0.3);color:var(--green-neon);">FISCAL</div>
+          <div class="tag" style="font-size:10px;padding:4px 10px;border-color:rgba(0,255,136,0.3);color:var(--green-neon);">BPO</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-number"><span>08</span> / 14</div>
+  <div class="progress-bar" style="width:57.14%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 09: DIFFERENTIALS - DEPTH EFFECT                          -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:500px;height:500px;top:50%;right:-100px;transform:translateY(-50%);"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">POR QUE AZ?</div>
+    <div class="text-headline" style="margin-bottom:60px;">Diferenciais que <span class="text-gradient">ninguem replica.</span></div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:30px;">
+
+      <div class="card card-glow" style="padding:48px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:30px;right:30px;font-family:'Space Grotesk';font-size:120px;font-weight:900;color:rgba(0,240,255,0.04);line-height:1;">01</div>
+        <div class="font-space" style="font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:16px;">Resultados Concretos</div>
+        <div class="text-body" style="font-size:20px;">Nao vendemos horas. Vendemos impacto mensuravel em receita, margem e caixa. Cada entregavel tem KPI vinculado.</div>
+      </div>
+
+      <div class="card card-glow" style="padding:48px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:30px;right:30px;font-family:'Space Grotesk';font-size:120px;font-weight:900;color:rgba(139,92,246,0.04);line-height:1;">02</div>
+        <div class="font-space" style="font-size:28px;font-weight:700;color:var(--purple);margin-bottom:16px;">Expertise Internacional</div>
+        <div class="text-body" style="font-size:20px;">Time com atuacao em multinacionais como Ericsson, Computer Associates e experiencia em mercados globais (Italia, UK).</div>
+      </div>
+
+      <div class="card card-glow" style="padding:48px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:30px;right:30px;font-family:'Space Grotesk';font-size:120px;font-weight:900;color:rgba(192,38,211,0.04);line-height:1;">03</div>
+        <div class="font-space" style="font-size:28px;font-weight:700;color:var(--magenta);margin-bottom:16px;">Tecnologia + Estrategia</div>
+        <div class="text-body" style="font-size:20px;">Dashboards com KPIs em tempo real, people analytics, inteligencia de negocios. Dados viram decisoes, nao decoracao.</div>
+      </div>
+
+      <div class="card card-glow" style="padding:48px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:30px;right:30px;font-family:'Space Grotesk';font-size:120px;font-weight:900;color:rgba(0,255,136,0.04);line-height:1;">04</div>
+        <div class="font-space" style="font-size:28px;font-weight:700;color:var(--green-neon);margin-bottom:16px;">Abordagem 360 Integrada</div>
+        <div class="text-body" style="font-size:20px;">Financeiro, juridico, contabil, RH -- tudo conectado. Sem silos, sem ruido. Um comando unico para toda a gestao.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-number"><span>09</span> / 14</div>
+  <div class="progress-bar" style="width:64.28%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 10: MARKET SIZE                                            -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-purple" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;display:flex;gap:80px;align-items:center;">
+    <div style="flex:1;">
+      <div class="text-label" style="margin-bottom:16px;">OPORTUNIDADE DE MERCADO</div>
+      <div class="text-hero" style="margin-bottom:30px;">
+        O mercado de<br><span class="text-gradient">BPO financeiro</span><br>esta explodindo.
+      </div>
+      <div class="accent-line" style="margin-bottom:24px;"></div>
+      <div class="text-subtitle" style="margin-bottom:30px;">
+        Empresas em crescimento precisam de gestao financeira profissional mas nao podem (ou nao querem) contratar C-Level full-time.
+      </div>
+      <div style="display:flex;gap:16px;">
+        <div class="tag">TAM: R$45B</div>
+        <div class="tag">SAM: R$8B</div>
+        <div class="tag">SOM: R$200M</div>
+      </div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <!-- Concentric circles for TAM/SAM/SOM -->
+      <div style="position:relative;width:500px;height:500px;">
+        <div style="position:absolute;inset:0;border-radius:50%;border:2px solid rgba(0,240,255,0.15);display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:20px;font-family:'Space Grotesk';font-weight:300;font-size:16px;color:var(--text-muted);">TAM</div>
+          <div style="position:absolute;top:45px;font-family:'Space Grotesk';font-weight:900;font-size:28px;color:rgba(0,240,255,0.4);">R$45B</div>
+        </div>
+        <div style="position:absolute;top:80px;left:80px;right:80px;bottom:80px;border-radius:50%;border:2px solid rgba(139,92,246,0.2);background:rgba(139,92,246,0.03);">
+          <div style="position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:'Space Grotesk';font-weight:300;font-size:16px;color:var(--text-muted);">SAM</div>
+          <div style="position:absolute;top:45px;left:50%;transform:translateX(-50%);font-family:'Space Grotesk';font-weight:900;font-size:28px;color:rgba(139,92,246,0.6);">R$8B</div>
+        </div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:160px;height:160px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 60px rgba(0,240,255,0.2);">
+          <div style="font-family:'Space Grotesk';font-weight:300;font-size:14px;color:rgba(0,0,0,0.6);">SOM</div>
+          <div style="font-family:'Space Grotesk';font-weight:900;font-size:32px;color:#0a0a0f;">R$200M</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>10</span> / 14</div>
+  <div class="progress-bar" style="width:71.42%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 11: 3-YEAR PROJECTION TIMELINE                            -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:500px;height:500px;bottom:-100px;left:200px;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;">
+    <div class="text-label" style="margin-bottom:16px;">PROJECAO 3 ANOS</div>
+    <div class="text-headline" style="margin-bottom:60px;">Roadmap de <span class="text-gradient">crescimento</span></div>
+
+    <div style="display:flex;gap:30px;">
+
+      <!-- Year 1 -->
+      <div class="card card-glow" style="flex:1;padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:var(--cyan);"></div>
+        <div class="font-space" style="font-size:64px;font-weight:900;color:var(--cyan);opacity:0.2;position:absolute;top:10px;right:20px;">Y1</div>
+        <div class="text-label" style="color:var(--cyan);margin-bottom:12px;">ANO 1 -- FUNDACAO</div>
+        <div class="font-space" style="font-size:42px;font-weight:900;color:var(--text-primary);margin-bottom:16px;">10-15</div>
+        <div class="text-body" style="font-size:16px;margin-bottom:16px;">clientes ativos no modelo retainer</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div style="font-size:15px;color:var(--text-secondary);line-height:1.8;">
+          Consolidar base tech/startup<br>
+          Fechar 2-3 operacoes M&A<br>
+          Estruturar processos internos<br>
+          Revenue: R$1.5M ARR
+        </div>
+      </div>
+
+      <!-- Year 2 -->
+      <div class="card card-glow" style="flex:1;padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:var(--purple);"></div>
+        <div class="font-space" style="font-size:64px;font-weight:900;color:var(--purple);opacity:0.2;position:absolute;top:10px;right:20px;">Y2</div>
+        <div class="text-label" style="color:var(--purple);margin-bottom:12px;">ANO 2 -- ESCALA</div>
+        <div class="font-space" style="font-size:42px;font-weight:900;color:var(--text-primary);margin-bottom:16px;">30-40</div>
+        <div class="text-body" style="font-size:16px;margin-bottom:16px;">clientes ativos, expansao regional</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div style="font-size:15px;color:var(--text-secondary);line-height:1.8;">
+          Expandir para PMEs industriais<br>
+          5-8 operacoes M&A/ano<br>
+          Plataforma tech proprietaria<br>
+          Revenue: R$4M ARR
+        </div>
+      </div>
+
+      <!-- Year 3 -->
+      <div class="card card-glow" style="flex:1;padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:4px;background:var(--gradient-accent);"></div>
+        <div class="font-space" style="font-size:64px;font-weight:900;color:var(--magenta);opacity:0.2;position:absolute;top:10px;right:20px;">Y3</div>
+        <div class="text-label" style="color:var(--magenta);margin-bottom:12px;">ANO 3 -- DOMINIO</div>
+        <div class="font-space" style="font-size:42px;font-weight:900;color:var(--text-primary);margin-bottom:16px;">80+</div>
+        <div class="text-body" style="font-size:16px;margin-bottom:16px;">clientes, referencia nacional</div>
+        <div class="divider-h" style="margin-bottom:16px;"></div>
+        <div style="font-size:15px;color:var(--text-secondary);line-height:1.8;">
+          Top 5 BPO financeiro Brasil<br>
+          10+ operacoes M&A/ano<br>
+          Expansao LATAM<br>
+          Revenue: R$12M ARR
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Growth bar -->
+    <div style="margin-top:40px;display:flex;align-items:center;gap:20px;">
+      <div style="font-size:14px;color:var(--text-muted);">CRESCIMENTO</div>
+      <div style="flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,0.03);overflow:hidden;">
+        <div style="height:100%;width:100%;background:linear-gradient(to right,var(--cyan),var(--purple),var(--magenta));border-radius:4px;"></div>
+      </div>
+      <div class="font-space" style="font-size:24px;font-weight:900;color:var(--cyan);">8x</div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>11</span> / 14</div>
+  <div class="progress-bar" style="width:78.56%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 12: INVESTMENT ASK                                         -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="glow-orb glow-magenta" style="width:400px;height:400px;bottom:-100px;right:100px;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="padding:140px 80px;width:100%;display:flex;gap:80px;align-items:center;">
+
+    <div style="flex:1;">
+      <div class="text-label" style="margin-bottom:16px;">O INVESTIMENTO</div>
+      <div class="text-hero" style="margin-bottom:20px;">
+        <span class="text-gradient">R$2M</span>
+      </div>
+      <div class="text-subtitle" style="margin-bottom:40px;">
+        Rodada seed para acelerar a captura de mercado e construir a plataforma tecnologica.
+      </div>
+      <div class="accent-line" style="margin-bottom:30px;"></div>
+
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);"></div>
+          <div class="text-body" style="font-size:20px;color:var(--text-primary);">ROI projetado: <strong style="color:var(--cyan);">5x em 3 anos</strong></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--purple);box-shadow:0 0 10px var(--purple);"></div>
+          <div class="text-body" style="font-size:20px;color:var(--text-primary);">Break-even: <strong style="color:var(--purple);">mes 14</strong></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--magenta);box-shadow:0 0 10px var(--magenta);"></div>
+          <div class="text-body" style="font-size:20px;color:var(--text-primary);">Margem liquida target: <strong style="color:var(--magenta);">35%+</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget allocation -->
+    <div style="flex:1;">
+      <div class="font-space" style="font-size:20px;font-weight:600;color:var(--text-secondary);margin-bottom:30px;text-align:center;">ALOCACAO DO INVESTIMENTO</div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:200px;text-align:right;font-size:16px;color:var(--text-secondary);">Tecnologia & Plataforma</div>
+          <div style="flex:1;height:40px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;position:relative;">
+            <div style="width:40%;height:100%;background:linear-gradient(to right,var(--cyan),rgba(0,240,255,0.5));border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;">
+              <span class="font-space" style="font-weight:700;font-size:16px;">40%</span>
+            </div>
+          </div>
+          <div class="font-space" style="width:80px;font-weight:700;color:var(--cyan);">R$800K</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:200px;text-align:right;font-size:16px;color:var(--text-secondary);">Equipe & Talentos</div>
+          <div style="flex:1;height:40px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;position:relative;">
+            <div style="width:30%;height:100%;background:linear-gradient(to right,var(--purple),rgba(139,92,246,0.5));border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;">
+              <span class="font-space" style="font-weight:700;font-size:16px;">30%</span>
+            </div>
+          </div>
+          <div class="font-space" style="width:80px;font-weight:700;color:var(--purple);">R$600K</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:200px;text-align:right;font-size:16px;color:var(--text-secondary);">Comercial & Marketing</div>
+          <div style="flex:1;height:40px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;position:relative;">
+            <div style="width:20%;height:100%;background:linear-gradient(to right,var(--magenta),rgba(192,38,211,0.5));border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;">
+              <span class="font-space" style="font-weight:700;font-size:16px;">20%</span>
+            </div>
+          </div>
+          <div class="font-space" style="width:80px;font-weight:700;color:var(--magenta);">R$400K</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:200px;text-align:right;font-size:16px;color:var(--text-secondary);">Capital de Giro</div>
+          <div style="flex:1;height:40px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;position:relative;">
+            <div style="width:10%;height:100%;background:linear-gradient(to right,var(--green-neon),rgba(0,255,136,0.5));border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;">
+              <span class="font-space" style="font-weight:700;font-size:16px;">10%</span>
+            </div>
+          </div>
+          <div class="font-space" style="width:80px;font-weight:700;color:var(--green-neon);">R$200K</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-number"><span>12</span> / 14</div>
+  <div class="progress-bar" style="width:85.7%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 13: VISION 5 YEARS                                        -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;justify-content:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:800px;height:800px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="glow-orb glow-purple" style="width:400px;height:400px;top:0;left:0;"></div>
+  <div class="glow-orb glow-magenta" style="width:400px;height:400px;bottom:0;right:0;"></div>
+
+  <div style="position:absolute;top:50px;left:60px;" class="logo-mark">
+    <div class="logo-bars">
+      <div class="bar magenta" style="height:20px;"></div>
+      <div class="bar teal" style="height:28px;"></div>
+      <div class="bar magenta" style="height:16px;"></div>
+      <div class="bar teal" style="height:32px;"></div>
+    </div>
+    <div class="logo-text"><span class="az">AZ</span> <span class="res">Resultados</span></div>
+  </div>
+
+  <div style="text-align:center;max-width:1200px;padding:0 80px;z-index:1;">
+    <div class="text-label" style="margin-bottom:30px;letter-spacing:6px;">VISAO 2030</div>
+    <div class="text-mega" style="margin-bottom:40px;">
+      <span class="text-gradient">Cada empresa em crescimento<br>merece um CFO de classe mundial.</span>
+    </div>
+    <div class="accent-line-long" style="margin:0 auto 40px;"></div>
+    <div class="text-subtitle" style="max-width:800px;margin:0 auto;margin-bottom:50px;">
+      Em 5 anos, a AZ Resultados sera a plataforma de referencia em gestao financeira estrategica para empresas em crescimento na America Latina. O ponto de partida para toda empresa que quer crescer com inteligencia.
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:60px;">
+      <div style="text-align:center;">
+        <div class="font-space" style="font-size:56px;font-weight:900;color:var(--cyan);">200+</div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:4px;">CLIENTES ATIVOS</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="font-space" style="font-size:56px;font-weight:900;color:var(--purple);">5</div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:4px;">PAISES LATAM</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="font-space" style="font-size:56px;font-weight:900;color:var(--magenta);">R$50M</div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:4px;">ARR TARGET</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="font-space" style="font-size:56px;font-weight:900;color:var(--green-neon);">IPO</div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:4px;">READY 2031</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-number"><span>13</span> / 14</div>
+  <div class="progress-bar" style="width:92.84%;"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SLIDE 14: CTA + CONTACT                                          -->
+<!-- ================================================================ -->
+<div class="slide" style="display:flex;align-items:center;justify-content:center;">
+  <div class="grid-overlay"></div>
+  <div class="glow-orb glow-cyan" style="width:600px;height:600px;top:50%;left:30%;transform:translate(-50%,-50%);"></div>
+  <div class="glow-orb glow-purple" style="width:500px;height:500px;top:50%;right:0;transform:translateY(-50%);"></div>
+
+  <div style="display:flex;align-items:center;gap:100px;padding:0 120px;width:100%;">
+
+    <!-- Left: CTA -->
+    <div style="flex:1;">
+      <div class="text-label" style="margin-bottom:30px;letter-spacing:6px;">PROXIMO PASSO</div>
+      <div class="text-hero" style="margin-bottom:30px;">
+        Vamos construir o<br><span class="text-gradient">futuro financeiro</span><br>juntos.
+      </div>
+      <div class="accent-line" style="margin-bottom:30px;"></div>
+      <div class="text-subtitle" style="margin-bottom:40px;">
+        30 minutos. Uma conversa. O inicio de uma parceria que transforma numeros em resultados.
+      </div>
+      <div style="display:inline-block;padding:20px 48px;background:var(--gradient-accent);border-radius:12px;cursor:pointer;">
+        <div class="font-space" style="font-size:20px;font-weight:700;color:#0a0a0f;">AGENDAR REUNIAO</div>
+      </div>
+    </div>
+
+    <!-- Right: Contact info -->
+    <div style="flex:0.8;">
+      <div class="card card-glow" style="padding:48px;">
+
+        <!-- Logo -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px;">
+          <div class="logo-bars" style="transform:scale(1.5);margin-right:8px;">
+            <div class="bar magenta" style="height:20px;"></div>
+            <div class="bar teal" style="height:28px;"></div>
+            <div class="bar magenta" style="height:16px;"></div>
+            <div class="bar teal" style="height:32px;"></div>
+            <div class="bar magenta" style="height:24px;"></div>
+            <div class="bar teal" style="height:36px;"></div>
+          </div>
+          <div style="font-family:'Space Grotesk';font-weight:900;font-size:36px;"><span style="color:var(--magenta);">AZ</span> <span style="color:var(--text-primary);">Resultados</span></div>
+        </div>
+
+        <div class="divider-h" style="margin-bottom:32px;"></div>
+
+        <!-- James Costa -->
+        <div style="margin-bottom:24px;">
+          <div class="font-space" style="font-size:22px;font-weight:700;color:var(--text-primary);">James Costa</div>
+          <div style="font-size:14px;color:var(--cyan);font-weight:600;letter-spacing:1px;">SOCIO FUNDADOR</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(0,240,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;">@</div>
+            <div style="color:var(--text-secondary);font-size:18px;">james.costa@azresultados.com.br</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(139,92,246,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--purple);font-weight:700;">T</div>
+            <div style="color:var(--text-secondary);font-size:18px;">+55 (19) 99648-1111</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(192,38,211,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--magenta);font-weight:700;">in</div>
+            <div style="color:var(--text-secondary);font-size:18px;">/jamescosta-financeiro</div>
+          </div>
+        </div>
+
+        <div class="divider-h" style="margin:24px 0;"></div>
+
+        <div style="display:flex;gap:12px;">
+          <div class="tag" style="font-size:11px;">azresultados.com.br</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-number"><span>14</span> / 14</div>
+  <div class="progress-bar" style="width:100%;"></div>
+</div>
+
+</body>
+</html>
